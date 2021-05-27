@@ -11,10 +11,6 @@
     <RepositoryUrl>https://github.com/ValenteMesmo/Valentemesmo.Railway</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>\Valentemesmo.Railway\Valentemesmo.Railway.xml</DocumentationFile>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>\Valentemesmo.Railway\Valentemesmo.Railway.xml</DocumentationFile>
   </PropertyGroup>
