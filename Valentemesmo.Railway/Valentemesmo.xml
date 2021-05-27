@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Valentemesmo</name>
+    </assembly>
+    <members>
+        <member name="T:Valentemesmo.Railway`1">
+            <summary>
+            Either a Success or a <see cref="T:System.Exception"/>.<br/>
+            An implementation of <see href="https://www.google.com/search?q=railway+error+handling">Railway error handling</see>
+            </summary>
+            <typeparam name="Success">Type of expected value when nothing goes wrong</typeparam>
+        </member>
+        <member name="M:Valentemesmo.Railway`1.#ctor(`0)">
+            <summary>
+            Constructor for Success.<br/>
+            You probably won't use it...<br/>
+            The implicit operator will do the trick.<br/>
+            </summary>
+            <param name="success">Type of expected value when nothing goes wrong</param>
+        </member>
+        <member name="M:Valentemesmo.Railway`1.#ctor(System.Exception)">
+            <summary>
+            Constructor for Failure.<br/>
+            You probably won't use it. The implicit operator will do the trick.<br/>
+            </summary>
+            <param name="failure">I recomend using custom Exception types</param>
+        </member>
+        <member name="M:Valentemesmo.Railway`1.Handle``1(System.Func{`0,``0},System.Func{System.Exception,``0})">
+            <summary>
+            This method ends the Railway.<br/>        
+            </summary>
+            <typeparam name="Target">Type that both handlers need to return</typeparam>
+            <param name="success">Handler for the happy path</param>
+            <param name="failure">Handler for the sad path</param>
+            <returns>Both handlers need to return the same type</returns>
+        </member>
+        <member name="M:Valentemesmo.Railway`1.Join(System.Func{`0,Valentemesmo.Railway{`0}})">
+            <summary>
+            Connects two Railways<br/>
+            </summary>
+            <returns>New Railway without changing Success type</returns>
+        </member>
+        <member name="M:Valentemesmo.Railway`1.Join``1(System.Func{`0,Valentemesmo.Railway{``0}})">
+            <summary>
+            Connects two Railways<br/>
+            </summary>
+            <typeparam name="Target">Type of resulting Railway</typeparam>
+            <returns>New Railway, but changing Success type to Target</returns>
+        </member>
+        <member name="M:Valentemesmo.Railway`1.Join``1(System.Func{`0,System.Threading.Tasks.Task{Valentemesmo.Railway{``0}}})">
+            <summary>
+            Connects two Railways using async handler<br/>
+            </summary>
+            <typeparam name="Target">Type of resulting Railway</typeparam>
+            <returns>New Railway, but changing Success type to Target</returns>
+        </member>
+        <member name="M:Valentemesmo.RailwayResultExtensions.Join``2(System.Threading.Tasks.Task{Valentemesmo.Railway{``0}},System.Func{``0,Valentemesmo.Railway{``1}})">
+            <summary>
+            Connects from async Railway<br/>
+            </summary>
+            <returns>New Railway without changing Success type</returns>
+        </member>
+        <member name="M:Valentemesmo.RailwayResultExtensions.Join``2(System.Threading.Tasks.Task{Valentemesmo.Railway{``0}},System.Func{``0,System.Threading.Tasks.Task{Valentemesmo.Railway{``1}}})">
+            <summary>
+            Connects two async Railways<br/>
+            </summary>
+            <returns>New Railway without changing Success type</returns>
+        </member>
+        <member name="M:Valentemesmo.RailwayResultExtensions.Handle``2(System.Threading.Tasks.Task{Valentemesmo.Railway{``0}},System.Func{``0,``1},System.Func{System.Exception,``1})">
+            <summary>
+            This method ends an async Railway.<br/>        
+            </summary>
+            <typeparam name="Target">Type that both handlers need to return</typeparam>
+            <param name="success">Handler for the happy path</param>
+            <param name="failure">Handler for the sad path</param>
+            <returns>Both handlers need to return the same type</returns>
+        </member>
+    </members>
+</doc>
