@@ -22,6 +22,7 @@ public class Railway<Success>
     {
         this.success = success;
         isSuccess = true;
+        failure = null;
     }
 
     /// <summary>
@@ -33,6 +34,7 @@ public class Railway<Success>
     {
         this.failure = failure;
         isSuccess = false;
+        success = default;
     }
 
     /// <summary>
@@ -132,4 +134,25 @@ public class Railway<Success>
     /// </summary>
     public static explicit operator Exception(Railway<Success> either)
         => either.failure;
+
+    public override string ToString()
+    {
+        return isSuccess
+            ? $"Success: {success}"
+            : $"Failure: {failure}";
+    }
+
+    public override bool Equals(object obj)
+    {
+        return isSuccess
+            ? success.Equals(obj)
+            : failure.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return isSuccess
+           ? success.GetHashCode()
+           : failure.GetHashCode();
+    }
 }
