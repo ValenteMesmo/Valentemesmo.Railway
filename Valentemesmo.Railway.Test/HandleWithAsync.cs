@@ -4,28 +4,26 @@ using Xunit;
 
 namespace Valentemesmo.Railway.Test
 {
-    public class HandleFromTaskTest
+    public class HandleWithAsync
     {
         [Theory, AutoNSubstitute]
         public async Task HappyPath(string expected)
         {
-            async Task<Railway<string>> sut() =>
-                await Task.FromResult(expected);
+            Railway<string> sut() => expected;
 
             Assert.True(await sut().Handle(
-                actual => actual == expected
+                async actual => await Task.FromResult(actual == expected)
                 , ex => false));
         }
 
         [Theory, AutoNSubstitute]
         public async Task SadPath(Exception expected)
         {
-            async Task<Railway<string>> sut() =>
-                await Task.FromResult(expected);
+            Railway<string> sut() => expected;
 
             Assert.True(await sut().Handle(
                 f => false
-                , actual => actual == expected));
+                , async actual => await Task.FromResult(actual == expected)));
         }
     }
 }
