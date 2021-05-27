@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Valentemesmo.Railway</AssemblyName>
-    <RootNamespace>Valentemesmo</RootNamespace>
-    <Version>0.0.4</Version>
-    <PackageId>Valentemesmo.Railway</PackageId>    
-    <Product>Valentemesmo.Railway</Product>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>ValenteMesmo.Railway</AssemblyName>
+    <RootNamespace>ValenteMesmo</RootNamespace>
+    <Version>0.0.5</Version>
+    <PackageId>ValenteMesmo.Railway</PackageId>    
+    <Product>ValenteMesmo.Railway</Product>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/ValenteMesmo/Valentemesmo.Railway</RepositoryUrl>
   </PropertyGroup>
