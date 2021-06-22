@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 /// An implementation of <see href="https://www.google.com/search?q=railway+error+handling">Railway error handling</see>
 /// </summary>
 /// <typeparam name="Success">Type of expected value when nothing goes wrong</typeparam>
-public class Railway<Success>
+public struct Railway<Success>
 {
     private readonly Success success;
     private readonly Exception failure;
