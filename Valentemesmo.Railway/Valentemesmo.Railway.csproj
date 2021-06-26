@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>ValenteMesmo.Railway</AssemblyName>
     <RootNamespace>ValenteMesmo</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <PackageId>ValenteMesmo.Railway</PackageId>    
     <Product>ValenteMesmo.Railway</Product>
     <PackageProjectUrl></PackageProjectUrl>
@@ -13,6 +13,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>$(MSBuildThisFileDirectory)\bin\$(Configuration)\$(TargetFramework)\Valentemesmo.Railway.xml</DocumentationFile>
+    <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
 
 </Project>

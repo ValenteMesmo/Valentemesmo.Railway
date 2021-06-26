@@ -19,7 +19,8 @@ namespace Valentemesmo.Railway.Test
 
     public class InlineNSubstituteAttribute : InlineAutoDataAttribute
     {
-        public InlineNSubstituteAttribute(params object[] values) : base(new AutoNSubstituteAttribute(), values)
+        public InlineNSubstituteAttribute(params object[] values) 
+            : base(new AutoNSubstituteAttribute(), values)
         {
         }
     }

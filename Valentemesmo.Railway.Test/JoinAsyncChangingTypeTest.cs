@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ValenteMesmo.Railway;
 using Xunit;
 
 namespace Valentemesmo.Railway.Test

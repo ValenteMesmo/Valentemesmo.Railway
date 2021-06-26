@@ -1,4 +1,5 @@
 ﻿using System;
+using ValenteMesmo.Railway;
 using Xunit;
 
 namespace Valentemesmo.Railway.Test
