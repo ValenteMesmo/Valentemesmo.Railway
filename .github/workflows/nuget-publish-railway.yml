@@ -1,4 +1,4 @@
-name: nuget-publish
+name: Valentemesmo.Railway
 
 on:
   push:
