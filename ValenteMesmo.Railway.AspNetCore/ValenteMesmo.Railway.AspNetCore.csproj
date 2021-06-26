@@ -1,9 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Version>0.0.1</Version>
     <RepositoryUrl>https://github.com/ValenteMesmo/Valentemesmo.Railway</RepositoryUrl>
+    <Authors>valentemesmo</Authors>
+    <Product />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

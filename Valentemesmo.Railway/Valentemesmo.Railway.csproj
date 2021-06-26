@@ -6,9 +6,10 @@
     <RootNamespace>ValenteMesmo</RootNamespace>
     <Version>0.2.0</Version>
     <PackageId>ValenteMesmo.Railway</PackageId>    
-    <Product>ValenteMesmo.Railway</Product>
+    <Product></Product>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/ValenteMesmo/Valentemesmo.Railway</RepositoryUrl>
+    <Authors>valentemesmo</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
