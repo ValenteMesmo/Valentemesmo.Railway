@@ -23,11 +23,6 @@ jobs:
           cd Valentemesmo.Railway
           dotnet pack -c Release -o out
           
-      - name: Build generate NuGet package Valentemesmo.Railway.AspNetCore
-        run: |  
-          cd Valentemesmo.Railway.AspNetCore
-          dotnet pack -c Release -o out
-          
       - name: Setup NuGet.exe for use with actions
         uses: NuGet/setup-nuget@v1.0.2
         env:
@@ -37,6 +32,3 @@ jobs:
 
       - name: Push package 1
         run: dotnet nuget push ./Valentemesmo.Railway/out/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_KEY}} --skip-duplicate
-        
-      - name: Push package 2
-        run: dotnet nuget push ./Valentemesmo.Railway.AspNetCore/out/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_KEY}} --skip-duplicate
