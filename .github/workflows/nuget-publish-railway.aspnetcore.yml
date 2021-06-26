@@ -1,4 +1,4 @@
-name: publish ValenteMesmo.Railway.AspNetCore
+name: ValenteMesmo.Railway.AspNetCore
 
 on:
   push:
