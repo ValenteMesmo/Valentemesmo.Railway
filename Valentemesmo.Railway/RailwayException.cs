@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ValenteMesmo.Railway
+namespace ValenteMesmo
 {
     /// <summary>
     /// Represents errors that occur during application execution
