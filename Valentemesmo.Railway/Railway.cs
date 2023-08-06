@@ -1,173 +1,65 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ValenteMesmo
+namespace ValenteMesmo.Results
 {
-
     /// <summary>
-    /// Either a Success or a <see cref="Exception"/>.<br/>
+    /// Either a <see cref="T"/> or a <see cref="Exception"/>.<br/>
     /// An implementation of <see href="https://www.google.com/search?q=railway+error+handling">Railway error handling</see>
     /// </summary>
-    /// <typeparam name="Success">Type of expected value when nothing goes wrong</typeparam>
-    public struct Railway<Success>
+    /// <typeparam name="TSuccess">Type of expected value when nothing goes wrong</typeparam>
+    public class Result<T>
     {
-        private readonly Success success;
-        private readonly Exception failure;
-        private readonly bool isSuccess;
+        internal readonly T value;
+        internal readonly Exception ex;
+        internal readonly bool isSuccessful;
 
-        /// <summary>
-        /// Constructor for Success.<br/>
-        /// You probably won't use it...<br/>
-        /// The implicit operator will do the trick.<br/>
-        /// </summary>
-        /// <param name="success">Type of expected value when nothing goes wrong</param>
-        public Railway(Success success)
+        public Result(T value)
         {
-            this.success = success;
-            isSuccess = true;
-            failure = null;
+            this.value = value;
+            isSuccessful = true;
+            ex = null;
         }
 
-        /// <summary>
-        /// Constructor for Failure.<br/>
-        /// You probably won't use it. The implicit operator will do the trick.<br/>
-        /// </summary>
-        /// <param name="failure">I recomend using custom Exception types</param>
-        public Railway(Exception failure)
+        public Result(Exception ex)
         {
-            this.failure = failure;
-            isSuccess = false;
-            success = default;
+            value = default;
+            this.ex = ex;
+            isSuccessful = false;
         }
 
-        /// <summary>
-        /// This method ends the Railway.
-        /// </summary>
-        /// <typeparam name="Target">Type that both handlers need to return</typeparam>
-        /// <param name="success">Handler for the happy path</param>
-        /// <param name="failure">Handler for the sad path</param>
-        /// <returns>Both handlers need to return the same type</returns>
-        public Target Handle<Target>(
-            Func<Success, Target> success
-            , Func<Exception, Target> failure)
-                => isSuccess
-                    ? success(this.success)
-                    : failure(this.failure);
+        public static implicit operator Result<T>(T value) =>
+            new Result<T>(value);
 
-        /// <summary>
-        /// This method ends the Railway with async Success
-        /// </summary>
-        /// <typeparam name="Target"></typeparam>
-        /// <param name="success"></param>
-        /// <param name="failure"></param>
-        /// <returns></returns>
-        public async Task<Target> Handle<Target>(
-            Func<Success, Task<Target>> success
-            , Func<Exception, Target> failure)
-                => isSuccess
-                    ? await success(this.success)
-                    : failure(this.failure);
+        public static implicit operator Result<T>(Exception ex) =>
+            new Result<T>(ex);
 
-        /// <summary>
-        /// This method ends the Railway with async Failure
-        /// </summary>
-        /// <typeparam name="Target"></typeparam>
-        /// <param name="success"></param>
-        /// <param name="failure"></param>
-        /// <returns></returns>
-        public async Task<Target> Handle<Target>(
-            Func<Success, Target> success
-            , Func<Exception, Task<Target>> failure)
-                => isSuccess
-                    ? success(this.success)
-                    : await failure(this.failure);
 
-        /// <summary>
-        /// Connects two Railways<br/>
-        /// </summary>
-        /// <returns>New Railway without changing Success type</returns>
-        public Railway<Success> Join(
-            Func<Success, Railway<Success>> success)
-                => isSuccess
-                    ? success(this.success)
-                    : this;
+        public static explicit operator T(Result<T> either)
+            => either.value;
 
-        /// <summary>
-        /// Connects two Railways<br/>
-        /// </summary>
-        /// <typeparam name="Target">Type of resulting Railway</typeparam>
-        /// <returns>New Railway, but changing Success type to Target</returns>
-        public Railway<Target> Join<Target>(
-            Func<Success, Railway<Target>> success)
-                => isSuccess
-                    ? success(this.success)
-                    : new Railway<Target>(failure);
+        public static explicit operator Exception(Result<T> either)
+            => either.ex;
 
-        /// <summary>
-        /// Connects two Railways using async handler<br/>
-        /// </summary>
-        /// <typeparam name="Target">Type of resulting Railway</typeparam>
-        /// <returns>New Railway, but changing Success type to Target</returns>
-        public async Task<Railway<Target>> Join<Target>(
-            Func<Success, Task<Railway<Target>>> success)
-                => isSuccess
-                    ? await success(this.success)
-                    : new Railway<Target>(failure);
+        public TResult Match<TResult>(Func<T, TResult> onSuccess, Func<Exception, TResult> onFailure) =>
+            isSuccessful
+                ? onSuccess(value)
+                : onFailure(ex);
 
-        /// <summary>
-        /// Implicit convert Success to Railway
-        /// </summary>
-        public static implicit operator Railway<Success>(Success success)
-            => new Railway<Success>(success);
+        public Result<TResult> Pipe<TResult>(Func<T, TResult> onSuccess) =>
+            isSuccessful
+                ? onSuccess(value)
+                : new Result<TResult>(ex);
 
-        /// <summary>
-        /// Implicit convert Exception to Railway
-        /// </summary>
-        public static implicit operator Railway<Success>(Exception failure)
-            => new Railway<Success>(failure);
+        public Result<TResult> Pipe<TResult>(Func<T, Result<TResult>> onSuccess) =>
+          isSuccessful
+              ? onSuccess(value)
+              : new Result<TResult>(ex);
 
-        /// <summary>
-        /// Explicit convert Success to Railway
-        /// </summary>
-        public static explicit operator Success(Railway<Success> either)
-            => either.success;
 
-        /// <summary>
-        /// Explicit convert Exception to Railway
-        /// </summary>
-        public static explicit operator Exception(Railway<Success> either)
-            => either.failure;
-
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        public override string ToString()
-        {
-            return isSuccess
-                ? $"Success: {success}"
-                : $"Failure: {failure}";
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return isSuccess
-                ? success.Equals(obj)
-                : failure.Equals(obj);
-        }
-
-        /// <summary>
-        /// Determines whether the specified object is equal to the current object.
-        /// </summary>
-        public override int GetHashCode()
-        {
-            return isSuccess
-               ? success.GetHashCode()
-               : failure.GetHashCode();
-        }
+        public async Task<Result<TResult>> Pipe<TResult>(Func<T, Task<Result<TResult>>> onSuccess) =>
+            isSuccessful
+                ? await onSuccess(value)
+                : new Result<TResult>(ex);
     }
 }

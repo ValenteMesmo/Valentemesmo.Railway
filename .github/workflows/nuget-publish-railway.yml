@@ -1,4 +1,4 @@
-name: Valentemesmo.Railway
+name: Valentemesmo.Results
 
 on:
   push:
@@ -11,14 +11,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     name: Update NuGet Org package
     steps:
 
       - name: Checkout repository
         uses: actions/checkout@v1 
 
-      - name: Build generate NuGet package Valentemesmo.Railway
+      - name: Build generate NuGet package Valentemesmo.Results
         run: |  
           cd Valentemesmo.Railway
           dotnet pack -c Release -o out

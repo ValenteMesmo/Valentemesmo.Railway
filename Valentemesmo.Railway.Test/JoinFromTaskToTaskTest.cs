@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using ValenteMesmo.Railway;
+using ValenteMesmo.Results;
 using Xunit;
 
 namespace Valentemesmo.Railway.Test
@@ -10,13 +10,13 @@ namespace Valentemesmo.Railway.Test
         [Theory, AutoNSubstitute]
         public async Task HappyPath(string expected, string anything)
         {
-            async Task<Railway<string>> first() =>
+            async Task<Result<string>> first() =>
                 await Task.FromResult(anything);
-            async Task<Railway<string>> second() => 
+            async Task<Result<string>> second() => 
                 await Task.FromResult(expected);
 
             var actual = await first()
-                .Join(f => second());
+                .Pipe(f => second());
 
             Assert.Equal((string)actual, expected);
             Assert.Null((Exception)actual);
@@ -25,13 +25,13 @@ namespace Valentemesmo.Railway.Test
         [Theory, AutoNSubstitute]
         public async Task SadPath(Exception expected, string anything)
         {
-            async Task<Railway<string>> first() =>
+            async Task<Result<string>> first() =>
                 await Task.FromResult(anything);
-            async Task<Railway<string>> second() =>
+            async Task<Result<string>> second() =>
                 await Task.FromResult(expected);
 
             var actual = await first()
-                .Join(f => second());
+                .Pipe(f => second());
 
             Assert.Equal((Exception)actual, expected);
             Assert.Null((string)actual);

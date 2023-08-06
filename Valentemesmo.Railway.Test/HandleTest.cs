@@ -1,5 +1,5 @@
 ﻿using System;
-using ValenteMesmo.Railway;
+using ValenteMesmo.Results;
 using Xunit;
 
 namespace Valentemesmo.Railway.Test
@@ -9,9 +9,9 @@ namespace Valentemesmo.Railway.Test
         [Theory, AutoNSubstitute]
         public void HappyPath(string expected)
         {
-            Railway<string> sut() => expected;
+            Result<string> sut() => expected;
 
-            Assert.True(sut().Handle(
+            Assert.True(sut().Match(
                 actual => actual == expected
                 , ex => false));
         }
@@ -19,9 +19,9 @@ namespace Valentemesmo.Railway.Test
         [Theory, AutoNSubstitute]
         public void SadPath(Exception expected)
         {
-            Railway<string> sut() => expected;
+            Result<string> sut() => expected;
 
-            Assert.True(sut().Handle(
+            Assert.True(sut().Match(
                 f => false
                 , actual => actual == expected));
         }

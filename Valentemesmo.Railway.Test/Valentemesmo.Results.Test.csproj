@@ -23,8 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ValenteMesmo.Railway.AspNetCore\ValenteMesmo.Railway.AspNetCore.csproj" />
-    <ProjectReference Include="..\Valentemesmo.Railway\Valentemesmo.Railway.csproj" />
+    <ProjectReference Include="..\Valentemesmo.Railway\Valentemesmo.Results.csproj" />
   </ItemGroup>
 
 </Project>
