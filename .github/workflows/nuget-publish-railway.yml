@@ -20,7 +20,7 @@ jobs:
 
       - name: Build generate NuGet package Valentemesmo.Results
         run: |  
-          cd Valentemesmo.Railway
+          cd Valentemesmo.Results
           dotnet pack -c Release -o out
           
       - name: Setup NuGet.exe for use with actions
